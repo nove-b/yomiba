@@ -1,0 +1,25 @@
+services:
+  web:
+    build: .
+    command: ["/usr/local/bin/web"]
+    ports:
+      - "8080:8080"
+
+  worker:
+    build: .
+    command: ["/usr/local/bin/worker"]
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: yomiba
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+
+  redis:
+    image: redis:7-alpine
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.13.0
+    environment:
+      MEILI_MASTER_KEY: development-only-secret
